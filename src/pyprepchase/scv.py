@@ -40,7 +40,7 @@ def _cache_key(path: str, model: JitterModel, i: int) -> str:
     return hashlib.sha1(raw.encode("utf-8")).hexdigest()[:16]
 
 
-def prepare(path: str, cache_dir: str = "~/chase/prep_cache", hdu: int = 1,
+def prepare(path: str, cache_dir: str = "~/.cache/pyprepchase", hdu: int = 1,
             channels: Optional[list] = None, crop=None, overwrite: bool = False,
             verbose: bool = False) -> Dict[str, Any]:
     """Return a pointing-corrected copy of one CHASE cube.

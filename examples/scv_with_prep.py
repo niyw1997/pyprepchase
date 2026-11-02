@@ -13,7 +13,7 @@ from pyprepchase.scv import describe, prepare
 
 path = sys.argv[1]
 print("model:", describe(path))
-info = prepare(path, cache_dir="~/chase/prep_cache", verbose=True)
+info = prepare(path, cache_dir="~/.cache/pyprepchase", verbose=True)
 print("corrected cube:", info["path"], "cached:", info["cached"])
 
 from solar_chromosphere_velocity import ChromosphereConfig, ChromosphereProcessor

@@ -12,15 +12,16 @@ Quick start::
 
     from pyprepchase import PrepConfig, PrepPipeline
 
-    cfg = PrepConfig(root="/data2/Chase/Lev1", outdir="~/chase/prep")
+    cfg = PrepConfig(root="/path/to/Chase/Lev1")
+    cfg.output.outdir = "./prep"
     PrepPipeline(cfg).run_day("2025-06-10")
 
 Command line::
 
     pyprep-chase run --date 2025-06-10 --channels 68,69,70,71,72
 
-The iron rules for CHASE data are enforced by construction: input files are only
-ever opened read-only, and every derived product goes to ``outdir``.
+Inputs are never modified: every FITS file is opened read-only and every derived
+product goes to ``config.output.outdir``.
 """
 from __future__ import annotations
 

@@ -103,6 +103,13 @@ def test_flags_mark_repoint(fake_day, tmp_path):
     assert all("repoint" not in rec["flags"] for rec in calm)
 
 
+def test_missing_root_raises():
+    cfg = PrepConfig(date="2025-06-10")
+    cfg.output.outdir = "./prep"
+    with pytest.raises(ValueError, match="root"):
+        PrepPipeline(cfg).frames()
+
+
 def test_missing_data_raises(tmp_path):
     cfg = PrepConfig(root=str(tmp_path), date="2030-01-01")
     cfg.output.outdir = str(tmp_path / "out")

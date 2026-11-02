@@ -22,7 +22,8 @@ class PrepPipeline:
 
     Example::
 
-        cfg = PrepConfig(root="/data2/Chase/Lev1", outdir="~/chase/prep")
+        cfg = PrepConfig(root="/path/to/Chase/Lev1")
+        cfg.output.outdir = "./prep"
         cfg.line_core.enabled = True
         manifest = PrepPipeline(cfg).run_day("2025-06-10")
     """
@@ -34,6 +35,8 @@ class PrepPipeline:
 
     # --------------------------------------------------------------------- steps
     def frames(self) -> List[Frame]:
+        if not self.config.root:
+            raise ValueError("PrepConfig.root is not set")
         if self._frames is None:
             self._frames = discover(self.config.root, self.config.date,
                                     self.config.pattern)

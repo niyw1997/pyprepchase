@@ -16,4 +16,6 @@ First release.
 - `pyprepchase.scv`: optional adapter for solar-chromosphere-velocity, with a hash-keyed cache.
 - Bundled real CHASE excerpt (`examples/data`, 5 frames, 512 x 512, 3 channels, 8 MB) and
   `examples/demo.py`, which rebuilds `docs/demo.png` and prints the before/after metric.
-- 55 tests on synthetic cubes plus the bundled excerpt; CI on Python 3.9, 3.11 and 3.12.
+- Neutral defaults for a public tool: `root` is required, `outdir` defaults to `./prep`, and the
+  scv cache lives under `~/.cache/pyprepchase`.
+- 56 tests on synthetic cubes plus the bundled excerpt; CI on Python 3.9, 3.11 and 3.12.

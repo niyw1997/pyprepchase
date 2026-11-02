@@ -15,7 +15,7 @@ from .pipeline import PrepPipeline
 
 
 def _common(parser: argparse.ArgumentParser) -> None:
-    parser.add_argument("--root", default="/data2/Chase/Lev1",
+    parser.add_argument("--root", default="", required=True,
                         help="CHASE Level-1 tree (or one day folder)")
     parser.add_argument("--date", required=True, help="YYYY-MM-DD")
     parser.add_argument("--pattern", default="*_HA.fits", help="filename glob")
@@ -48,7 +48,7 @@ def build_parser() -> argparse.ArgumentParser:
     _common(p)
     p.add_argument("--channels", default="", help="comma separated, e.g. 68,69,70")
     p.add_argument("--crop", default="", help="x0,y0,w,h")
-    p.add_argument("--outdir", default="~/chase/prep")
+    p.add_argument("--outdir", default="./prep")
     p.add_argument("--format", default="fits", choices=["fits", "npz"])
     p.add_argument("--overwrite", action="store_true")
     p.add_argument("--line-core", action="store_true",
@@ -61,7 +61,7 @@ def build_parser() -> argparse.ArgumentParser:
     _common(p)
     p.add_argument("--channels", default="")
     p.add_argument("--crop", default="")
-    p.add_argument("--outdir", default="~/chase/prep")
+    p.add_argument("--outdir", default="./prep")
     p.add_argument("--format", default="fits", choices=["fits", "npz"])
     p.add_argument("--overwrite", action="store_true")
     p.add_argument("--line-core", action="store_true")

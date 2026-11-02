@@ -9,7 +9,7 @@ an optional preprocessing step; it is off by default and has no hard dependency 
 ```python
 from pyprepchase.scv import prepare
 
-info = prepare("RSM20250610T010407_0000_HA.fits", cache_dir="~/chase/prep_cache")
+info = prepare("RSM20250610T010407_0000_HA.fits", cache_dir="~/.cache/pyprepchase")
 # info["path"] is a corrected FITS cube with CRPIX moved to the daily reference
 
 from solar_chromosphere_velocity import ChromosphereConfig, ChromosphereProcessor
@@ -33,13 +33,13 @@ then
 ```python
 cfg = ChromosphereConfig(input_dir="data", output_dir="out")
 cfg.use_pyprepchase = True
-cfg.pyprepchase_cache_dir = "~/chase/prep_cache"
+cfg.pyprepchase_cache_dir = "~/.cache/pyprepchase"
 ```
 
 or from the command line:
 
 ```bash
-process-chase data out --use-pyprepchase --pyprepchase-cache ~/chase/prep_cache
+process-chase data out --use-pyprepchase --pyprepchase-cache ~/.cache/pyprepchase
 ```
 
 If `pyprepchase` is not installed, `scv` logs a warning and continues with the raw file. The

@@ -3,15 +3,15 @@
 
 Usage::
 
-    python examples/prep_day.py /data2/Chase/Lev1 2025-06-10 ~/chase/prep
+    python examples/prep_day.py /path/to/Chase/Lev1 2025-06-10 ./prep
 """
 import sys
 
 from pyprepchase import PrepConfig, PrepPipeline
 
-root = sys.argv[1] if len(sys.argv) > 1 else "/data2/Chase/Lev1"
+root = sys.argv[1] if len(sys.argv) > 1 else "/path/to/Chase/Lev1"
 date = sys.argv[2] if len(sys.argv) > 2 else "2025-06-10"
-outdir = sys.argv[3] if len(sys.argv) > 3 else "~/chase/prep"
+outdir = sys.argv[3] if len(sys.argv) > 3 else "./prep"
 
 cfg = PrepConfig(root=root, date=date)
 cfg.output.outdir = outdir

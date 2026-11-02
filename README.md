@@ -40,22 +40,25 @@ Python 3.9+.
 ## Command line
 
 ```bash
+# CHASE_ROOT is the directory holding the Level-1 tree (it contains YYYY/M/DD folders)
+CHASE_ROOT=/path/to/Chase/Lev1
+
 # what is in this day?
-pyprep-chase index --root /data2/Chase/Lev1 --date 2025-06-10
+pyprep-chase index --root "$CHASE_ROOT" --date 2025-06-10
 
 # per-frame pointing model (header only, seconds)
-pyprep-chase model --root /data2/Chase/Lev1 --date 2025-06-10 --out ~/chase/prep
+pyprep-chase model --root "$CHASE_ROOT" --date 2025-06-10 --out ./prep
 
 # audit CRPIX against the solar limb on a sample of frames (reads pixels)
-pyprep-chase audit --root /data2/Chase/Lev1 --date 2025-06-10 --n 10
+pyprep-chase audit --root "$CHASE_ROOT" --date 2025-06-10 --n 10
 
 # full pipeline: model + audit + flags + products + manifest + QC figure
-pyprep-chase run --root /data2/Chase/Lev1 --date 2025-06-10 \
-    --outdir ~/chase/prep --channels 68,69,70,71,72 --start 0 --count 25
+pyprep-chase run --root "$CHASE_ROOT" --date 2025-06-10 \
+    --outdir ./prep --channels 68,69,70,71,72 --start 0 --count 25
 
 # same, but derive the line core from CRVAL3/CDELT3 and average +/- 2 channels
-pyprep-chase run --root /data2/Chase/Lev1 --date 2025-06-10 \
-    --outdir ~/chase/prep --line-core --half-width 2
+pyprep-chase run --root "$CHASE_ROOT" --date 2025-06-10 \
+    --outdir ./prep --line-core --half-width 2
 ```
 
 ## Python API
@@ -63,12 +66,12 @@ pyprep-chase run --root /data2/Chase/Lev1 --date 2025-06-10 \
 ```python
 from pyprepchase import PrepConfig, PrepPipeline, JitterModel, discover
 
-frames = discover("/data2/Chase/Lev1", "2025-06-10")
+frames = discover("/path/to/Chase/Lev1", "2025-06-10")
 model = JitterModel.build(frames, reference="median")
 print(model.stats())
 
-cfg = PrepConfig(root="/data2/Chase/Lev1", date="2025-06-10", outdir="~/chase/prep")
-cfg.output.outdir = "~/chase/prep"
+cfg = PrepConfig(root="/path/to/Chase/Lev1", date="2025-06-10")
+cfg.output.outdir = "./prep"
 cfg.channels = (70,)
 manifest = PrepPipeline(cfg).run_day(do_audit=False)
 print(manifest["stats"])
@@ -95,12 +98,11 @@ Accuracy measured on CHASE data: `limb - CRPIX` is constant to 0.10 to 0.21 pixe
 the tracking residual of a 25-frame segment drops from 8.6" to 0.38". See
 [`docs/method.md`](docs/method.md) for the numbers and the diagnostics.
 
-## Iron rules for CHASE data
+## Data safety
 
-1. CHASE data are either opened read-only, or copied under the user's `chase/` directory first.
-2. Programs and written files stay under the user's home directory.
-
-`pyprepchase` opens every input with `mode="readonly"` and writes only to `outdir`.
+`pyprepchase` never writes to its inputs: every FITS file is opened with `mode="readonly"` and
+all products go to `outdir`. If you want the corrected cubes next to the originals, pass the
+target directory explicitly.
 
 ## Using it from `solar-chromosphere-velocity`
 
@@ -108,8 +110,8 @@ the tracking residual of a 25-frame segment drops from 8.6" to 0.38". See
 
 ```python
 from pyprepchase.scv import prepare
-info = prepare("/data/.../RSM20250610T010407_0000_HA.fits",
-               cache_dir="~/chase/prep_cache")
+info = prepare("/path/to/RSM20250610T010407_0000_HA.fits")
+# cached under ~/.cache/pyprepchase by default
 ```
 
 The corrected cube is cached and can be fed to `scv` like any other FITS file.

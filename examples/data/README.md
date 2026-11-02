@@ -5,7 +5,7 @@ keeping the effect the package is about.
 
 | item | value |
 |---|---|
-| source | `solarmanage:/data2/Chase/Lev1/2025/6/10/` (read-only) |
+| source | CHASE/HIS Level-1, 2025-06-10 (official CHASE data archive) |
 | frames | `RSM20250610T010407` to `RSM20250610T010851`, 5 frames, 72 s cadence |
 | channels | absolute 69, 70, 71 (H-alpha line centre at 6562.8 A) |
 | crop | 512 x 512 pixels, origin (x0, y0) = (467, 848), recorded in the header |

@@ -65,7 +65,7 @@ class LineCoreOptions:
 class OutputOptions:
     """Where and how products are written."""
 
-    outdir: str = "~/chase/prep"
+    outdir: str = "./prep"
     format: str = "fits"  # fits | npz
     crop: Optional[Tuple[int, int, int, int]] = None  # x0, y0, w, h
     overwrite: bool = False
@@ -78,7 +78,8 @@ class PrepConfig:
     """Top-level configuration.
 
     Attributes:
-        root: Directory with the CHASE Level-1 day folders.
+        root: Directory holding the CHASE Level-1 tree (``YYYY/M/DD`` folders), or
+            a single day directory.  Required.
         date: Day in ``YYYY-MM-DD``.
         pattern: Filename pattern of the cubes.
         channels: Explicit channel list (overrides ``line_core``).
@@ -90,7 +91,7 @@ class PrepConfig:
         hdu: HDU holding the spectral cube (1 for CHASE Level-1).
     """
 
-    root: str = "/data2/Chase/Lev1"
+    root: str = ""
     date: str = ""
     pattern: str = DEFAULT_GLOB
     channels: Tuple[int, ...] = ()
