@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 import os
+import time
 from typing import Any, Dict, List, Optional, Sequence
 
 import numpy as np
@@ -113,10 +114,25 @@ class PrepPipeline:
         if date:
             self.config.date = date
             self._frames = None
+        steps: List[Dict[str, Any]] = []
+
+        def step(name: str, t0: float, info: Optional[Dict[str, Any]] = None) -> float:
+            steps.append(dict(name=name, seconds=round(time.perf_counter() - t0, 3),
+                              **(info or {})))
+            return time.perf_counter()
+
+        t0 = time.perf_counter()
         model = self.model()
+        t0 = step("index+model", t0, dict(n=len(model)))
+
         outdir = resolve_outdir(self.config.output.outdir)
-        audit_rows = self.audit(model) if (do_audit and self.config.jitter.audit_fraction > 0) else []
+        audit_rows = []
+        if do_audit and self.config.jitter.audit_fraction > 0:
+            audit_rows = self.audit(model)
+        t0 = step("audit", t0, dict(frames=len(audit_rows)))
+
         flags = self.flags(model, audit_rows)
+        t0 = step("flags", t0, dict(frames=len(flags)))
 
         start = max(int(self.config.start), 0)
         stop = len(model) if self.config.count <= 0 else min(start + int(self.config.count),
@@ -124,6 +140,7 @@ class PrepPipeline:
         products = []
         for i in range(start, stop):
             products.append(self.process_frame(i, model, outdir, audit_rows))
+        t0 = step("products", t0, dict(written=len(products), first=start, last=max(stop - 1, start)))
 
         manifest: Dict[str, Any] = dict(
             package="pyprepchase",
@@ -136,8 +153,10 @@ class PrepPipeline:
             audit=dict(rows=audit_rows, summary=audit_summary(audit_rows)),
             flags=flags,
             products=products,
+            steps=steps,
         )
         manifest_path = os.path.join(outdir, self.config.output.manifest_name)
+        steps.append(dict(name="manifest", seconds=0.0))
         with open(manifest_path, "w", encoding="utf-8") as fh:
             json.dump(manifest, fh, indent=1, ensure_ascii=False)
         manifest["manifest"] = manifest_path

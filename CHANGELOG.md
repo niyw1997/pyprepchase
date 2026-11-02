@@ -12,5 +12,6 @@ First release.
 - `quality`: `gap_before`, `repoint`, `limb_mismatch`, `first`/`last` flags.
 - `PrepPipeline.run_day`: products + `manifest.json` (config, stats, audit, flags) + QC figure.
 - CLI `pyprep-chase`: `index`, `model`, `audit`, `apply`, `run`.
+- Per-step timing recorded in `manifest["steps"]`.
 - `pyprepchase.scv`: optional adapter for solar-chromosphere-velocity, with a hash-keyed cache.
 - 52 tests on synthetic CHASE cubes; CI on Python 3.9, 3.11 and 3.12.

@@ -74,7 +74,7 @@ again = JitterModel.load("jitcal_20250610.json")
 | `model` | reads `CRPIX1/CRPIX2`, builds `(dx, dy)` per frame to a median reference | trust the header blindly: `audit` checks it |
 | `audit` | fits the solar limb circle and compares `limb - CRPIX` | model the scan pattern or the instrument PSF |
 | `apply` | spline resampling (cubic by default), optional crop, updated WCS | resample the wavelength axis |
-| `run` | the above plus `manifest.json`, per-frame flags and a QC figure | remove cosmic rays, flats or dark current |
+| `run` | the above plus `manifest.json` (with per-step timing), per-frame flags and a QC figure | remove cosmic rays, flats or dark current |
 | flags | `gap_before`, `repoint`, `limb_mismatch`, `first`/`last` | decide which frames your science needs |
 
 Accuracy measured on CHASE data: `limb - CRPIX` is constant to 0.10 to 0.21 pixel over a day, and
