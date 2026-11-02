@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If you use pyprepchase in a publication, please cite the repository and the version you used."
+title: "pyprepchase: preprocessing for CHASE/HIS Level-1 data"
+abstract: >-
+  Per-frame pointing model from the CRPIX header cards, sub-pixel registration onto a
+  common grid, optional line-core extraction, quality flags and provenance metadata for
+  CHASE/HIS Level-1 spectral cubes.
+authors:
+  - family-names: Ni
+    given-names: Yiwei
+    email: y.w.ni@smail.nju.edu.cn
+    affiliation: "Nanjing University, School of Astronomy and Space Science"
+version: 0.1.0
+date-released: "2026-11-03"
+license: MIT
+repository-code: "https://github.com/niyw1997/pyprepchase"
+keywords:
+  - solar physics
+  - CHASE
+  - H-alpha
+  - FITS
+  - image registration
