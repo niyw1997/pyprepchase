@@ -10,3 +10,4 @@ htmlcov/
 *.fits
 *.npz
 !tests/data/*.fits
+!examples/data/**/*.fits

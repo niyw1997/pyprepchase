@@ -14,4 +14,6 @@ First release.
 - CLI `pyprep-chase`: `index`, `model`, `audit`, `apply`, `run`.
 - Per-step timing recorded in `manifest["steps"]`.
 - `pyprepchase.scv`: optional adapter for solar-chromosphere-velocity, with a hash-keyed cache.
-- 52 tests on synthetic CHASE cubes; CI on Python 3.9, 3.11 and 3.12.
+- Bundled real CHASE excerpt (`examples/data`, 5 frames, 512 x 512, 3 channels, 8 MB) and
+  `examples/demo.py`, which rebuilds `docs/demo.png` and prints the before/after metric.
+- 55 tests on synthetic cubes plus the bundled excerpt; CI on Python 3.9, 3.11 and 3.12.

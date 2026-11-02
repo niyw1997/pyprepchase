@@ -14,6 +14,20 @@ The offset is recorded in the header: `CRPIX1`/`CRPIX2` move with the image. `py
 those cards into an explicit, testable model, resamples every frame onto a common grid, and writes
 the model, the audit and the flags next to the products.
 
+## See it work
+
+![pyprepchase demo](docs/demo.png)
+
+Five real CHASE frames from 2025-06-10, the excerpt shipped in
+[`examples/data`](examples/data) (512 x 512 pixels, three channels, 8 MB). (a) the reference frame,
+(b) the next frame with the reference contour overlaid: the whole field is displaced by 8.3 arcsec in
+x and 5.9 arcsec in y, (c) the same frame after the `CRPIX` correction, (d) the per-frame shift. The
+odd/even stack difference drops from 25.4 to 5.1 DN.
+
+```bash
+python examples/demo.py          # rebuilds docs/demo.png from the bundled data
+```
+
 ## Install
 
 ```bash
