@@ -1,0 +1,54 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pyprepchase"
+version = "0.1.0"
+description = "Preprocessing for CHASE/HIS Level-1 data: pointing model, sub-pixel registration, line-core extraction"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "Yiwei Ni", email = "y.w.ni@smail.nju.edu.cn" }]
+keywords = ["solar physics", "CHASE", "H-alpha", "FITS", "preprocessing", "registration"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Astronomy",
+]
+dependencies = [
+    "numpy>=1.21",
+    "scipy>=1.7",
+    "astropy>=5.0",
+]
+
+[project.optional-dependencies]
+plot = ["matplotlib>=3.5"]
+dev = ["pytest>=7.0", "pytest-cov>=4.0"]
+docs = ["sphinx>=5.0"]
+
+[project.urls]
+Homepage = "https://github.com/niyw1997/pyprepchase"
+Issues = "https://github.com/niyw1997/pyprepchase/issues"
+
+[project.scripts]
+pyprep-chase = "pyprepchase.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.black]
+line-length = 100
+
+[tool.ruff]
+line-length = 100
